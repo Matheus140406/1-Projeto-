@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Azul</title>
+  <style>
+    /* ======== FUNDO GERAL ======== */
+    body {
+      background: linear-gradient(to bottom right, #042057, #ffffff);
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* ======== TÍTULO ======== */
+    h1 {
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ======== BOTÃO MODO NOTURNO ======== */
+    #toggle-dark {
+      background: #ffffff;
+      color: #042057;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    #toggle-dark:hover {
+      background: #ffffff;
+    }
+
+    /* ======== CALCULADORA ======== */
+    .calculadora {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      width: 280px;
+      transition: background 0.5s, box-shadow 0.5s;
+    }
+
+    /* ======== VISOR ======== */
+    #display {
+      width: 100%;
+      height: 50px;
+      margin-bottom: 15px;
+      text-align: right;
+      font-size: 1.5em;
+      border: none;
+      outline: none;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #C0D5FC;
+      color: #004A99;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* ======== BOTÕES ======== */
+    .botoes {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 1.3em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #2C1AC9;
+    }
+
+    /* ======== BOTÃO DE LIMPAR ======== */
+    #limpar {
+      grid-column: span 4;
+      background-color: #ff0000d5;
+    }
+
+    #limpar:hover {
+      background-color: #ff0000d5;
+    }
+
+    /* ======== BOTÃO DE IGUAL ======== */
+    #igual {
+      background-color: #00B34A;
+    }
+
+    #igual:hover {
+      background-color: #008F3A;
+    }
+
+    /* ======== MODO NOTURNO ======== */
+    body.dark-mode {
+      background: linear-gradient(to bottom right, #000814, #001D3D);
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .calculadora {
+      background: #0D1B2A;
+      box-shadow: 0 0 25px rgba(0, 140, 255, 0.4);
+    }
+
+    body.dark-mode #display {
+      background-color: #1B263B;
+      color: #00BFFF;
+    }
+
+    body.dark-mode button {
+      background-color: #007BFF;
+      color: #ffffff;
+    }
+
+    body.dark-mode button:hover {
+      background-color: #00BFFF;
+    }
+
+    body.dark-mode #limpar {
+      background-color: #FF5555;
+    }
+
+    body.dark-mode #igual {
+      background-color: #00D46D;
+    }
+
+    body.dark-mode #toggle-dark {
+      background: #00BFFF;
+      color: #001220;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculadora</h1>
+
+  <!-- Botão de alternar modo -->
+  <button id="toggle-dark">🌙 Alternar Modo</button>
+
+  <div class="calculadora">
+    <input type="text" id="display" readonly>
+    <div class="botoes">
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button>/</button>
+
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button>*</button>
+
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>-</button>
+
+      <button>0</button>
+      <button>.</button>
+      <button id="igual">=</button>
+      <button>+</button>
+
+      <button id="limpar">C</button>
+    </div>
+  </div>
+
+  <script>
+    // Seleciona o visor e os botões
+    const display = document.getElementById('display');
+    const botoes = document.querySelectorAll('.botoes button');
+
+    // Botão do modo noturno
+    const toggleDark = document.getElementById('toggle-dark');
+
+    // === FUNCIONALIDADE DOS BOTÕES ===
+    botoes.forEach(botao => {
+      botao.addEventListener('click', () => {
+        const valor = botao.textContent;
+
+        if (valor === 'C') {
+          display.value = '';
+          return;
+        }
+
+        if (valor === '=') {
+          try {
+            display.value = eval(display.value);
+          } catch {
+            display.value = 'Erro';
+          }
+          return;
+        }
+
+        display.value += valor;
+      });
+    });
+
+    // === MODO NOTURNO ===
+    toggleDark.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+
+      if (document.body.classList.contains('dark-mode')) {
+        toggleDark.textContent = '☀️ Modo Claro';
+      } else {
+        toggleDark.textContent = '🌙 Modo Noturno';
+      }
+    });
+  </script>
+</body>
+</html>
