@@ -1,0 +1,61 @@
+def soma(a, b):
+    return a + b
+
+def subtrai(a, b):
+    return a - b
+
+def multiplica(a, b):
+    return a * b
+
+def divide(a, b):
+    if b != 0:
+        return a / b
+    else:
+        return "Erro: Divisão por zero!"
+
+def calculadora():
+    print("Bem-vindo à Calculadora Python!")
+    print("Operações disponíveis: +, -, *, /")
+    print("Digite 'sair' a qualquer momento para encerrar.")
+
+    while True:
+        num1 = input("Digite o primeiro número: ")
+        if num1.lower() == "sair":
+            break
+        
+        num2 = input("Digite o segundo número: ")
+        if num2.lower() == "sair":
+            break
+        
+        operacao = input("Digite a operação (+, -, *, /): ")
+        if operacao.lower() == "sair":
+            break
+
+        # Verifica se os números são válidos
+        try:
+            num1 = float(num1)
+            num2 = float(num2)
+        except ValueError:
+            print("Erro: Digite um número válido!")
+            continue
+
+        # Executa a operação
+        if operacao == "+":
+            resultado = soma(num1, num2)
+        elif operacao == "-":
+            resultado = subtrai(num1, num2)
+        elif operacao == "*":
+            resultado = multiplica(num1, num2)
+        elif operacao == "/":
+            resultado = divide(num1, num2)
+        else:
+            print("Operação inválida!")
+            continue
+
+        print("Resultado:", resultado)
+        print("-" * 30)
+
+    print("Calculadora encerrada. Até mais!")
+
+# Executa a calculadora
+calculadora()
