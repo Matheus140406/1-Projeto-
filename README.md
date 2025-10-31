@@ -1,4 +1,4 @@
-<Tittle><h2>1º Projeto calculadora</h2></Tittle>
+<Tittle><h2>1º Projeto</h2></Tittle>
 <p><b>Nome: Matheus Carvalho Dias</b></p>
 <p><b>Faculdade: Estácio</b></p>
 <p><b>Curso: Sistema de informação (2025-2028)</b></p>
